@@ -40,7 +40,7 @@ export const Navbar: FC<{
       </nav>
       {/* Mobile */}
       {navIsOpen && (
-        <nav className="flex flex-col items-center fixed z-50 min-h-full w-full border-2 border-primary dark:border-blue-900 justify-between p-8 dark:bg-gray-800">
+        <nav className="flex flex-col items-center fixed z-50 min-h-full w-full border-2 border-primary dark:border-blue-900 justify-between p-8 dark:bg-gray-800 bg-white">
           <div className="flex justify-between w-full">
             <NextLink href="/admin" passHref>
               <a
@@ -56,7 +56,7 @@ export const Navbar: FC<{
               </a>
             </NextLink>
             <button onClick={handleOpenNav.bind(this, false)}>
-              <FontAwesomeIcon icon={faClose} width={20} color="white" />
+              <FontAwesomeIcon icon={faClose} width={20} className='text-gray-800 dark:text-white' />
             </button>
           </div>
           <div className="flex flex-col space-y-24">

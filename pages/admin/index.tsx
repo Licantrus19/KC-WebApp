@@ -51,24 +51,24 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       return acc
     }, {})
 
-    averageTestsPerMonth = Math.round(
+    averageTestsPerMonth = Object.keys(questionnariesPerMonth)?.length ? Math.round(
       Object.values<number>(questionnariesPerMonth).reduce(
         (acc: number, value: number) => {
           return acc + value
         },
         0
       ) / Object.keys(questionnariesPerMonth).length
-    )
+    ) : 0
 
     const { data: evaluationsMonth } = await getKidsAgesInEvaluations(
       session.user.backendToken!
     )
 
-    averageTestsAges = Math.round(
+    averageTestsAges = evaluationsMonth?.length ? Math.round(
       evaluationsMonth.reduce((acc: number, evaluation: any) => {
         return acc + evaluation.month_test
       }, 0) / evaluationsMonth.length
-    )
+    ) : 0
 
     inactiveUsers = await db.user.count({
       where: {
@@ -120,11 +120,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       chartInfo.values.push(usersPerMonthTochart[itemKey])
     })
 
-    averageUsersPerMonth = Math.round(
+    averageUsersPerMonth = Object.keys(questionnariesPerMonth)?.length ? Math.round(
       Object.values(usersPerMonth).reduce((acc, value) => {
         return acc + value
       }, 0) / Object.keys(questionnariesPerMonth).length
-    )
+    ) : 0
   } catch (err) {
     console.log(err)
   }
